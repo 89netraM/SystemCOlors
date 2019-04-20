@@ -1,9 +1,9 @@
 public class SystemColors {
-	public static String getAccentColor(String fallback) {
+	public static int getAccentColor(int fallback) {
 		String os = System.getProperty("os.name").toLowerCase();
 
 		if (os.contains("windows")) {
-			String winAccent = windows.AccentColor.getAccentColor();
+			Integer winAccent = windows.AccentColor.getAccentColor();
 			if (winAccent != null) {
 				return winAccent;
 			}
