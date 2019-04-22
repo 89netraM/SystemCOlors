@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public interface AccentColor extends Library {
-	public static Integer getAccentColor() {
+	static Integer getAccentColor() {
 		String os = System.getProperty("os.name").toLowerCase();
 		if (os.startsWith("windows") && (os.endsWith("10") || os.endsWith("8"))) {
 			final AccentColor dwmapi = Native.load("dwmapi", AccentColor.class);
@@ -26,26 +26,26 @@ public interface AccentColor extends Library {
 	class DWMCOLORIZATIONcolors extends Structure {
 		static class ByReference extends DWMCOLORIZATIONcolors implements Structure.ByReference { }
 
-		int ColorizationColor = 0;
-		int ColorizationAfterglow = 0;
-		int ColorizationColorBalance = 0;
-		int ColorizationAfterglowBalance = 0;
-		int ColorizationBlurBalance = 0;
-		int ColorizationGlassReflectionIntensity = 0;
-		int ColorizationOpaqueBlend = 0;
+		public int ColorizationColor = 0;
+		public int ColorizationAfterglow = 0;
+		public int ColorizationColorBalance = 0;
+		public int ColorizationAfterglowBalance = 0;
+		public int ColorizationBlurBalance = 0;
+		public int ColorizationGlassReflectionIntensity = 0;
+		public int ColorizationOpaqueBlend = 0;
 
 		DWMCOLORIZATIONcolors() { }
 
 		@Override
 		protected List<String> getFieldOrder() {
 			return Arrays.asList(
-				"ColorizationColor",
-				"ColorizationAfterglow",
-				"ColorizationColorBalance",
-				"ColorizationAfterglowBalance",
-				"ColorizationBlurBalance",
-				"ColorizationGlassReflectionIntensity",
-				"ColorizationOpaqueBlend"
+					"ColorizationColor",
+					"ColorizationAfterglow",
+					"ColorizationColorBalance",
+					"ColorizationAfterglowBalance",
+					"ColorizationBlurBalance",
+					"ColorizationGlassReflectionIntensity",
+					"ColorizationOpaqueBlend"
 			);
 		}
 	}
