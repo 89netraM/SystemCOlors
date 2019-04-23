@@ -10,8 +10,8 @@ public class AccentColor {
 					AccentColor = AccentColor.substring(2);
 				}
 
-				long f = Long.parseLong(AccentColor, 16);
-				return (int)(((f & 0x0000ff) << 16) | (f & 0x00ff00) | ((f & 0xff0000) >> 16));
+				int f = Integer.parseUnsignedInt(AccentColor, 16);
+				return ((f & 0x0000ff) << 16) | (f & 0x00ff00) | ((f & 0xff0000) >> 16);
 			}
 		}
 
