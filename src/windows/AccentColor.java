@@ -1,54 +1,22 @@
 package windows;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.Structure;
-import com.sun.jna.ptr.IntByReference;
-
-import java.util.Arrays;
-import java.util.List;
-
-public interface AccentColor extends Library {
-	static Integer getAccentColor() {
+public class AccentColor {
+	public static Integer getAccentColor() {
 		String os = System.getProperty("os.name").toLowerCase();
 		if (os.startsWith("windows") && (os.endsWith("10") || os.endsWith("8"))) {
-			final AccentColor dwmapi = Native.load("dwmapi", AccentColor.class);
-			final AccentColor.DWMCOLORIZATIONcolors colors = new AccentColor.DWMCOLORIZATIONcolors.ByReference();
-			dwmapi.DwmpGetColorizationParameters(colors);
+			String AccentColor = WindowsRegistry.ReadKey("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\DWM", "AccentColor");
+			if (AccentColor != null && (AccentColor = AccentColor.toUpperCase()).matches("(?:0X)?[0-9|A-F]{8}")) {
+				if (AccentColor.startsWith("0X")) {
+					AccentColor = AccentColor.substring(2);
+				}
 
-			return colors.ColorizationColor;
+				long f = Long.parseLong(AccentColor, 16);
+				return (int)(((f & 0x0000ff) << 16) | (f & 0x00ff00) | ((f & 0xff0000) >> 16));
+			}
 		}
-		else {
-			return null;
-		}
+
+		return null;
 	}
 
-	class DWMCOLORIZATIONcolors extends Structure {
-		static class ByReference extends DWMCOLORIZATIONcolors implements Structure.ByReference { }
-
-		public int ColorizationColor = 0;
-		public int ColorizationAfterglow = 0;
-		public int ColorizationColorBalance = 0;
-		public int ColorizationAfterglowBalance = 0;
-		public int ColorizationBlurBalance = 0;
-		public int ColorizationGlassReflectionIntensity = 0;
-		public int ColorizationOpaqueBlend = 0;
-
-		DWMCOLORIZATIONcolors() { }
-
-		@Override
-		protected List<String> getFieldOrder() {
-			return Arrays.asList(
-					"ColorizationColor",
-					"ColorizationAfterglow",
-					"ColorizationColorBalance",
-					"ColorizationAfterglowBalance",
-					"ColorizationBlurBalance",
-					"ColorizationGlassReflectionIntensity",
-					"ColorizationOpaqueBlend"
-			);
-		}
-	}
-
-	void DwmpGetColorizationParameters(DWMCOLORIZATIONcolors colors);
+	private AccentColor() { }
 }
