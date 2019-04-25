@@ -22,7 +22,14 @@ public class AccentColor {
 		String os = System.getProperty("os.name").toLowerCase();
 		if (os.startsWith("macos")) { // What's the name for MacOS?
 			Integer color = MacOSDefaults.ReadDefault("AppleAccentColor");
-			return colorMap.get(color)[0]; // TODO: Return dark theme color when in dark theme
+			int[] accentColor = colorMap.get(color);
+
+			if (Theme.IsDark() == Boolean.TRUE) {
+				return accentColor[1];
+			}
+			else {
+				return accentColor[0];
+			}
 		}
 
 		return null;
