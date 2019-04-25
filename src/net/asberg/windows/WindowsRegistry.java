@@ -1,4 +1,4 @@
-package windows;
+package net.asberg.windows;
 
 import java.io.IOException;
 import java.io.InputStream;

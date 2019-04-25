@@ -1,9 +1,14 @@
+package net.asberg;
+
+import net.asberg.windows.AccentColor;
+import net.asberg.windows.Theme;
+
 public class SystemColors {
 	public static int getAccentColor(int fallback) {
 		String os = System.getProperty("os.name").toLowerCase();
 
 		if (os.contains("windows")) {
-			Integer winAccent = windows.AccentColor.getAccentColor();
+			Integer winAccent = AccentColor.getAccentColor();
 			if (winAccent != null) {
 				return winAccent;
 			}
@@ -16,7 +21,7 @@ public class SystemColors {
 		String os = System.getProperty("os.name").toLowerCase();
 
 		if (os.contains("windows")) {
-			Boolean b = windows.Theme.IsLight();
+			Boolean b = Theme.IsLight();
 			if (b != null) {
 				return b;
 			}

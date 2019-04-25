@@ -1,4 +1,4 @@
-package windows;
+package net.asberg.windows;
 
 public class AccentColor {
 	public static Integer getAccentColor() {
