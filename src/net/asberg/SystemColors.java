@@ -23,14 +23,20 @@ public class SystemColors {
 	public static boolean isLightTheme(boolean fallback) {
 		String os = System.getProperty("os.name").toLowerCase();
 
+		Boolean isLight = null;
 		if (os.contains("windows")) {
-			Boolean b = net.asberg.windows.Theme.IsLight();
-			if (b != null) {
-				return b;
-			}
+			isLight = net.asberg.windows.Theme.IsLight();
+		}
+		else if (os.contains("macos")) { // What's the name for MacOS?
+			isLight = net.asberg.macos.Theme.IsLight();
 		}
 
-		return fallback;
+		if (isLight != null) {
+			return isLight;
+		}
+		else {
+			return fallback;
+		}
 	}
 	public static boolean isDarkTheme(boolean fallback) {
 		return !isLightTheme(!fallback);
