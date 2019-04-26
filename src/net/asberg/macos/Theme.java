@@ -1,22 +1,10 @@
 package net.asberg.macos;
 
+import java.awt.*;
+
 public class Theme {
 	public static Boolean IsLight() {
-		String os = System.getProperty("os.name").toLowerCase();
-		if (os.contains("macos")) { // What's the name for MacOS?
-			Integer theme = MacOSDefaults.ReadDefault("AppleInterfaceStyle");
-
-			if (theme != null) {
-				if (theme == 0) {
-					return false;
-				}
-				else {
-					return true;
-				}
-			}
-		}
-
-		return null;
+		return SystemColor.window.getRGB() > 0xfff;
 	}
 
 	public static Boolean IsDark() {
